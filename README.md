@@ -1,24 +1,23 @@
 # MyFlixster
-This is still a work in progress
-# Android Project 3 - *Name of App Here*
+# Android Project 3 - MyFlixster
 
 Submitted by: Jordan Johnson
 
 MyFlixster is a movie browsing app that allows users to browse movies currently playing in theaters.
 
-Time spent: 3 hours spent in total
+Time spent: 10 hours spent in total
 
 ## Required Features
 
 The following **required** functionality is completed:
 
-- [ ] **Make a request to [The Movie Database API's `now_playing`](https://developers.themoviedb.org/3/movies/get-now-playing) endpoint to get a list of current movies**
-- [ ] **Parse through JSON data and implement a RecyclerView to display all movies**
-- [ ] **Use Glide to load and display movie poster images**
+- [X] **Make a request to [The Movie Database API's `now_playing`](https://developers.themoviedb.org/3/movies/get-now-playing) endpoint to get a list of current movies**
+- [X] **Parse through JSON data and implement a RecyclerView to display all movies**
+- [X] **Use Glide to load and display movie poster images**
 
 The following **optional** features are implemented:
 
-- [ ] Improve and customize the user interface through styling and coloring
+- [X] Improve and customize the user interface through styling and coloring
 - [ ] Implement orientation responsivity
   - App should neatly arrange data in both landscape and portrait mode
 - [ ] Implement Glide to display placeholder graphics during loading
@@ -26,7 +25,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- Added a toast pop up when the user clicks on the movie that tells the user the title of the movie they have clicked on.
 
 ## Video Walkthrough
 
@@ -34,7 +33,8 @@ Here's a walkthrough of implemented user stories:
 
 
 
-![Project3](https://user-images.githubusercontent.com/111920942/192423521-ff229a2a-caac-4f49-bd59-d67af7edc700.gif)
+![Project3](https://user-images.githubusercontent.com/111920942/193147802-9d126dcd-f09b-4c89-8f91-184dac442a19.gif)
+
 
 
 ## License

@@ -61,9 +61,9 @@ class BestMovieFragment : Fragment(), OnListFragmentInteractionListener {
 
                         var gson = Gson()
                         val arrayMovieType = object : TypeToken<List<BestMovie>>() {}.type
-                        val resultsJSON : JSONObject = json.jsonObject.get("results") as JSONObject
-                        val movieRawJSON : String = resultsJSON.get("original_title").toString()
-                        val models : List<BestMovie> = gson.fromJson(movieRawJSON, arrayMovieType)
+                        val resultsJSON : String = json.jsonObject.get("results").toString()
+                        //val movieRawJSON : String = resultsJSON.get("results").toString()
+                        val models : List<BestMovie> = gson.fromJson(resultsJSON, arrayMovieType)
                         recyclerView.adapter = BestMovieRecyclerViewAdapter(models, this@BestMovieFragment)
 
                         Log.d("BestSellerBooksFragment", "response successful")
@@ -88,7 +88,7 @@ class BestMovieFragment : Fragment(), OnListFragmentInteractionListener {
     }
 
     override fun onItemClick(item: BestMovie) {
-        Toast.makeText(context, "test: " + item.title, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "You have clicked: " + item.title, Toast.LENGTH_SHORT).show()
     }
 
 }

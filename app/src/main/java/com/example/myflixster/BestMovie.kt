@@ -13,15 +13,15 @@ import com.google.gson.annotations.SerializedName
 
 
 class BestMovie {
-
+    @JvmField
     @SerializedName("backdrop_path")
     var moveImageUrl: String? = null
 
-
+    @JvmField
     @SerializedName("original_title")
     var title: String? = null
 
-
+    @JvmField
     @SerializedName("overview")
     var description: String? = null
 }

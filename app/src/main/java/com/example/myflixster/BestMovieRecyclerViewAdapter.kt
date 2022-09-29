@@ -15,7 +15,8 @@ class BestMovieRecyclerViewAdapter(
     )
     : RecyclerView.Adapter<BestMovieRecyclerViewAdapter.MovieViewHolder>()
     {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder
+        {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.best_movie, parent, false)
             return MovieViewHolder(view)
@@ -26,5 +27,33 @@ class BestMovieRecyclerViewAdapter(
             var mItem: BestMovie? = null
             val mMovieTitle: TextView = mView.findViewById<View>(id.movie_title) as TextView
             val mMovieDescription: TextView = mView.findViewById<View>(id.movie_description) as TextView
+            val mMovieImage: ImageView = mView.findViewById<View>(id.movie_image) as ImageView
+
+            override fun toString(): String {
+                return mMovieTitle.toString() + " '" + mMovieDescription.text + "'"
+            }
+        }
+
+
+        override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+            val movie = movies[position]
+
+            holder.mItem = movie
+            holder.mMovieTitle.text = movie.title
+            holder.mMovieDescription.text = movie.description
+
+            holder.mView.setOnClickListener {
+                holder.mItem?.let { movie ->
+                    mListener?.onItemClick(movie)
+                }
+            }
+            Glide.with(holder.mView)
+                .load("https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US&page=1" + movie.moveImageUrl)
+                .centerInside()
+                .into(holder.mMovieImage)
+        }
+
+        override fun getItemCount(): Int {
+            return movies.size
         }
 }

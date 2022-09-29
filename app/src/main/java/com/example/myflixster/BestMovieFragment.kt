@@ -10,9 +10,9 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.asynchttpclient.AsyncHttpClient
-import com.example.asynchttpclient.RequestParams
-import com.example.asynchttpclient.callback.JsonHttpResponseHandler
+import com.codepath.asynchttpclient.AsyncHttpClient
+import com.codepath.asynchttpclient.RequestParams
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.Headers
@@ -24,13 +24,14 @@ private const val API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
 class BestMovieFragment : Fragment(), OnListFragmentInteractionListener {
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.best_movie, container, false)
+        val view = inflater.inflate(R.layout.best_movie_list, container, false)
         val progressBar = view.findViewById<View>(R.id.progress) as ContentLoadingProgressBar
         val recyclerView = view.findViewById<View>(R.id.list) as RecyclerView
         val context = view.context
+        recyclerView.layoutManager = GridLayoutManager(context, 1)
         updateAdapter(progressBar, recyclerView)
         return view
     }
@@ -45,7 +46,7 @@ class BestMovieFragment : Fragment(), OnListFragmentInteractionListener {
 
 
         client[
-                "https://api.themoviedb.org/3/movie/now_playing?api_key=<<api_key>>&language=en-US&page=1",
+                "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&language=en-US&page=1",
                 params,
                 object : JsonHttpResponseHandler()
                 {
@@ -59,11 +60,13 @@ class BestMovieFragment : Fragment(), OnListFragmentInteractionListener {
                         progressBar.hide()
 
                         var gson = Gson()
-                        val arrayMovieType = object : TypeToken<List<BestMovie>>{}.type
+                        val arrayMovieType = object : TypeToken<List<BestMovie>>() {}.type
                         val resultsJSON : JSONObject = json.jsonObject.get("results") as JSONObject
-                        val movieRawJSON : String = resultsJSON.get("movie").toString()
+                        val movieRawJSON : String = resultsJSON.get("original_title").toString()
                         val models : List<BestMovie> = gson.fromJson(movieRawJSON, arrayMovieType)
-                        recyclerView.adapter = BestSellerBooksRecyclerViewAdapter(models, this@BestMovieFragment)
+                        recyclerView.adapter = BestMovieRecyclerViewAdapter(models, this@BestMovieFragment)
+
+                        Log.d("BestSellerBooksFragment", "response successful")
                     }
 
                     override fun onFailure(
@@ -77,42 +80,15 @@ class BestMovieFragment : Fragment(), OnListFragmentInteractionListener {
 
                         // If the error is not null, log it!
                         t?.message?.let {
-                            Log.e("BestMovieFragment", errorResponse)
+                            Log.e("BestMovieFragmentFAIL!!", errorResponse)
                         }
                     }
                 }]
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     override fun onItemClick(item: BestMovie) {
-        TODO("Not yet implemented")
+        Toast.makeText(context, "test: " + item.title, Toast.LENGTH_LONG).show()
     }
 
 }
